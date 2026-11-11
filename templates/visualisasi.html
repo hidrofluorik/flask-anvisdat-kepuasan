@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Dashboard Visualisasi Kepuasan Pelanggan</h2>
+
+<p>Total Data Pelanggan: <strong>{{ total }}</strong></p>
+
+<div class="row mt-4">
+    <div class="col-md-6 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <h5 class="card-title">Bar Chart</h5>
+                <p class="text-muted">Jumlah pelanggan per kategori status</p>
+                <img src="{{ url_for('static', filename='charts/bar.png') }}" class="img-fluid rounded" alt="Bar Chart">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <h5 class="card-title">Pie Chart</h5>
+                <p class="text-muted">Persentase kepuasan pelanggan</p>
+                <img src="{{ url_for('static', filename='charts/pie.png') }}" class="img-fluid rounded" alt="Pie Chart">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

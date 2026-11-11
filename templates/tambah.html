@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Tambah Data Pelanggan</h2>
+
+<form method="POST" action="/tambah">
+    <div class="mb-3">
+        <label>Nama</label>
+        <input type="text" name="nama" class="form-control" required placeholder="Masukkan nama pelanggan">
+    </div>
+
+    <div class="mb-3">
+        <label>Umur</label>
+        <input type="number" name="umur" class="form-control" required placeholder="Contoh: 25">
+    </div>
+
+    <div class="mb-3">
+        <label>Skor Pelayanan (0-100)</label>
+        <input type="number" step="0.01" name="skor_pelayanan" class="form-control" required placeholder="Contoh: 85.5">
+    </div>
+
+    <div class="mb-3">
+        <label>Skor Kualitas (0-100)</label>
+        <input type="number" step="0.01" name="skor_kualitas" class="form-control" required placeholder="Contoh: 90.0">
+    </div>
+
+    <div class="mb-3">
+        <label>Waktu Tunggu (Menit)</label>
+        <input type="number" step="0.01" name="waktu_tunggu" class="form-control" required placeholder="Contoh: 15">
+    </div>
+
+    <div class="mb-3">
+        <label>Status Kepuasan</label>
+        <select name="status" class="form-control" required>
+            <option value="" disabled selected>Pilih Status...</option>
+            <option value="Puas">Puas</option>
+            <option value="Tidak Puas">Tidak Puas</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Simpan Data</button>
+    <a href="/" class="btn btn-secondary">Kembali</a>
+</form>
+{% endblock %}

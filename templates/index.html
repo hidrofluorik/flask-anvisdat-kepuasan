@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Data Kepuasan Pelanggan</h2>
+
+<div class="mb-3">
+    <a href="/tambah" class="btn btn-primary">Tambah Data</a>
+    <a href="/generate-data" class="btn btn-success" onclick="return confirm('Generate 1000 data simulasi pelanggan?')">Generate 1000 Data</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Umur</th>
+                <th>Skor Pelayanan</th>
+                <th>Skor Kualitas</th>
+                <th>Waktu Tunggu (Menit)</th>
+                <th>Status</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.nama }}</td>
+                <td>{{ item.umur }}</td>
+                <td>{{ item.skor_pelayanan }}</td>
+                <td>{{ item.skor_kualitas }}</td>
+                <td>{{ item.waktu_tunggu }}</td>
+                <td>
+                    {% if item.status == 'Puas' %}
+                        <span class="badge bg-success">{{ item.status }}</span>
+                    {% else %}
+                        <span class="badge bg-danger">{{ item.status }}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="/edit/{{ item.id }}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="/hapus/{{ item.id }}" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

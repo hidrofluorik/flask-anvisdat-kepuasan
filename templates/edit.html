@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Edit Data Pelanggan</h2>
+
+<form method="POST">
+    <div class="mb-3">
+        <label>Nama</label>
+        <input type="text" name="nama" value="{{ pelanggan.nama }}" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Umur</label>
+        <input type="number" name="umur" value="{{ pelanggan.umur }}" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Skor Pelayanan (0-100)</label>
+        <input type="number" step="0.01" name="skor_pelayanan" value="{{ pelanggan.skor_pelayanan }}" class="form-control" required>
+    </div>
+    
+    <div class="mb-3">
+        <label>Skor Kualitas (0-100)</label>
+        <input type="number" step="0.01" name="skor_kualitas" value="{{ pelanggan.skor_kualitas }}" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Waktu Tunggu (Menit)</label>
+        <input type="number" step="0.01" name="waktu_tunggu" value="{{ pelanggan.waktu_tunggu }}" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Status Kepuasan</label>
+        <select name="status" class="form-control" required>
+            <option value="Puas" {% if pelanggan.status == 'Puas' %}selected{% endif %}>Puas</option>
+            <option value="Tidak Puas" {% if pelanggan.status == 'Tidak Puas' %}selected{% endif %}>Tidak Puas</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Data</button>
+    <a href="/" class="btn btn-secondary">Batal</a>
+</form>
+{% endblock %}

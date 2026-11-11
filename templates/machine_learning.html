@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Machine Learning - Prediksi Kepuasan</h2>
+
+{% if rf_acc %}
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="alert alert-success shadow-sm">
+            <h4>Akurasi Random Forest: {{ rf_acc }}%</h4>
+            <small>Model yang lebih stabil karena menggunakan banyak pohon keputusan (ensemble).</small>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="alert alert-info shadow-sm">
+            <h4>Akurasi Decision Tree: {{ dt_acc }}%</h4>
+            <small>Model yang menggunakan satu pohon keputusan tunggal.</small>
+        </div>
+    </div>
+</div>
+
+<div class="mb-4">
+    <span class="badge bg-secondary">Data Training: {{ total_train }} baris</span>
+    <span class="badge bg-secondary">Data Testing: {{ total_test }} baris</span>
+</div>
+
+<h4>Tingkat Pengaruh Variabel (Feature Importance - Random Forest)</h4>
+<div class="table-responsive mb-5">
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Variabel / Fitur</th>
+                <th>Tingkat Pengaruh (Importance)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in features %}
+            <tr>
+                <td>{{ item[0] | replace("_", " ") | title }}</td>
+                <td>{{ "%.4f"|format(item[1]) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+<hr>
+
+<h3 class="mt-4">Prediksi Pelanggan Baru (Pakai Random Forest)</h3>
+<div class="card shadow-sm mb-5">
+    <div class="card-body">
+        <form method="POST" action="/prediksi">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Umur</label>
+                    <input type="number" name="umur" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Skor Pelayanan (0-100)</label>
+                    <input type="number" step="0.01" name="skor_pelayanan" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Skor Kualitas (0-100)</label>
+                    <input type="number" step="0.01" name="skor_kualitas" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Waktu Tunggu (Menit)</label>
+                    <input type="number" step="0.01" name="waktu_tunggu" class="form-control" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Mulai Prediksi</button>
+        </form>
+    </div>
+</div>
+
+{% if hasil %}
+<div class="alert {% if hasil == 'Puas' %}alert-success{% else %}alert-danger{% endif %} text-center shadow-sm mb-5">
+    <h3>Hasil Prediksi: <strong>{{ hasil }}</strong></h3>
+    <p class="mb-0">Berdasarkan data yang diinput, sistem memprediksi pelanggan ini akan merasa <strong>{{ hasil | lower }}</strong>.</p>
+</div>
+{% endif %}
+
+{% endblock %}
